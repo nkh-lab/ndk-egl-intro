@@ -3,8 +3,10 @@
 #include <EGL/egl.h>
 #include <GLES/gl.h>
 
-static void engine_handle_cmd(struct android_app* app, int32_t cmd);
-static void egl_intro(struct android_app* app);
+namespace {
+void engine_handle_cmd(struct android_app* app, int32_t cmd);
+void egl_intro(struct android_app* app);
+} // namespace
 
 /**
  * This is the main entry point of a native application that is using
@@ -30,10 +32,11 @@ void android_main(struct android_app* state)
     }
 }
 
+namespace {
 /**
  * Process the next main command.
  */
-static void engine_handle_cmd(struct android_app* app, int32_t cmd)
+void engine_handle_cmd(struct android_app* app, int32_t cmd)
 {
     switch (cmd)
     {
@@ -57,13 +60,13 @@ static void engine_handle_cmd(struct android_app* app, int32_t cmd)
  * EGL example as is from https://www.khronos.org/registry/EGL/sdk/docs/man/html/eglIntro.xhtml
  */
 // clang-format off
-static EGLint const attribute_list[] = {
+EGLint const attribute_list[] = {
         EGL_RED_SIZE, 1,
         EGL_GREEN_SIZE, 1,
         EGL_BLUE_SIZE, 1,
         EGL_NONE
 };
-static void egl_intro(struct android_app* app)
+void egl_intro(struct android_app* app)
 {
     EGLDisplay display;
     EGLConfig config;
@@ -101,3 +104,4 @@ static void egl_intro(struct android_app* app)
     eglSwapBuffers(display, surface);
 }
 // clang-format on
+} // namespace
